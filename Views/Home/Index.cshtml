@@ -1,0 +1,48 @@
+﻿@model DesignPatternTP.ViewModels.SerieVM
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+    <h2 class="text-center font-bold m-5">Mes mots de passe</h2>
+    <table class="rounded-t-lg m-5 w-2/3 mx-auto bg-gray-800 text-gray-200">
+        <thead>
+            <tr class="text-left border-b-2 border-gray-300">
+                <th class="px-4 py-3">Titre</th>
+                <th class="px-4 py-3">Saison</th>
+                <th class="px-4 py-3">Episode</th>
+                <th class="px-4 py-3">Utilisateur</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var serie in Model.ListeSeries)
+            {
+                <tr class="bg-gray-700 border-b border-gray-600">
+                    <th class="px-4 py-3">@serie.titre</th>
+                    <td class="px-4 py-3">@serie.saison</td>
+                    <td class="px-4 py-3">@serie.episode</td>
+                    <td class="px-4 py-3">@serie.Utilisateur.prenom @serie.Utilisateur.nom</td>
+                    <td class="px-4 py-3">
+                        @using (Html.BeginForm("Suppression", "Home", FormMethod.Post))
+                        {
+                            @Html.ActionLink("Modifier", "Modification", "Home", new { id = serie.id }, new { @class = "bg-gray-500 hover:bg-purple-600 p-4 shadow-md rounded-md text-white" })
+                            <input name="id" value="@serie.id" type="hidden"/>
+                            <button class="bg-gray-500 hover:bg-purple-600 p-4 shadow-md rounded-md text-white" type="submit">Supprimer</button>
+                        }
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="text-center">
+        <br />
+        <p><b>Nombre d'élément total : @Model.Total</b></p>
+
+        @for (int i = 0; i < Model.Pages; i++)
+        {
+            @Html.ActionLink((i + 1).ToString(), "Index", "Home", new { offset = i }, new { @class = "btn btn-default" })
+        }
+    </div>
+

@@ -1,0 +1,34 @@
+﻿@model DesignPatternTP.Serie
+
+@{
+    ViewBag.Title = "Nouveau";
+}
+
+<div class="jumbotron">
+    <h1>Nouvelle épisode</h1>
+    @*Appel du controller HomeController méthode Enregistrer via un POST /Home/Enregistrer*@
+    @using (Html.BeginForm("Enregistrer", "Home", FormMethod.Post))
+    {
+        <form action="/Valider">
+            <div class="form-group">
+                <label for="titre">Titre</label>
+                @Html.TextBoxFor(x => x.titre, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label for="saison">Saison</label>
+                @Html.TextBoxFor(x => x.saison, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label for="episode">Episode</label>
+                @Html.TextBoxFor(x => x.episode, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label for="utilisateur">Utilisateur</label>
+                @Html.DropDownListFor(x => x.id_utilisateur, ViewBag.Organisations as SelectList)
+            </div>
+            <button type="submit" class="btn btn-primary">Valider</button>
+        </form>
+    }
+
+</div>
+
